@@ -454,7 +454,8 @@ public class AddressBook {
      */
     private static String executeFindPersons(String commandArgs) {
         final Set<String> keywords = extractKeywordsFromFindPersonArgs(commandArgs);
-        final ArrayList<String[]> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
+
+        final ArrayList<String[]> personsFound = getPersonsWithNameContainingAnyKeyword(keywords.stream().map(String :: toLowerCase).collect(Collectors.toList()));
         showToUser(personsFound);
         return getMessageForPersonsDisplayedSummary(personsFound);
     }
